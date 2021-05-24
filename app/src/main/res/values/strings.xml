@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Yellow Heart</string>
+    <string name="facebook_application_id"
+        translatable="false">3984119488369218</string>
+</resources>
