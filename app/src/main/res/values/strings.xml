@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Yellow Heart</string>
-    <string name="facebook_application_id"
-        translatable="false">3984119488369218</string>
+    <string name="facebook_application_id" translatable="false">3984119488369218</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
