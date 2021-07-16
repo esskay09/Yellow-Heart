@@ -115,7 +115,7 @@ fun InitiativeDetail(
             BottomBar(
                 onBottomBarItemClicked = {
                     when (it) {
-                        AB_SHARE -> isHelpClicked.value = true
+                        AB_SHARE -> isShareClicked.value = true
                     }
                     onBottomBarItemClicked(it)
                 }

@@ -31,5 +31,4 @@ object Constants {
 
     const val JOIN_LINK = "https://chat.whatsapp.com/FZIY9JlyvPP8vJ5YzBaY8s"
 
-    const val YOUTUBE_API = "AIzaSyCf78mGkqbBFGHfQ7ifW5UZNiEemr7jITY"
 }
