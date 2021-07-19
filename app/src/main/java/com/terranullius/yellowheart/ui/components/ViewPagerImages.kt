@@ -107,18 +107,23 @@ fun ViewPagerImages(
 
         Box(modifier = Modifier.fillMaxSize()) {
 
-          /*  val context = LocalContext.current
+            val contextCurrent = LocalContext.current
 
             val youTubePlayerView: YouTubePlayerView = remember {
-                YouTubePlayerView(context)
+                YouTubePlayerView(contextCurrent)
             }
-*/
+
+            DisposableEffect(key1 = null) {
+                this.onDispose {
+                    youTubePlayerView.release()
+                }
+            }
+
             if (images[page].contains("youtubeID")) {
                 AndroidView(
                     modifier = Modifier
                         .fillMaxSize(),
                     factory = { context ->
-                        val youTubePlayerView = YouTubePlayerView(context)
                         (context as AppCompatActivity).lifecycle.addObserver(youTubePlayerView)
                         val videoId = images[page].substringAfter("=")
                         youTubePlayerView.apply {
