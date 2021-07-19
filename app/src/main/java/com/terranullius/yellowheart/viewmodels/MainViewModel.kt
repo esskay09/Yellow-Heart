@@ -8,7 +8,9 @@ import com.terranullius.yellowheart.data.Initiative
 import com.terranullius.yellowheart.data.toInitiative
 import com.terranullius.yellowheart.data.toInitiativeDto
 import com.terranullius.yellowheart.other.Constants
+import com.terranullius.yellowheart.utils.PaymentCallback
 import com.terranullius.yellowheart.utils.Result
+import com.terrranullius.pickcab.util.Event
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,6 +25,10 @@ class MainViewModel : ViewModel() {
     private val _isSignedIn = MutableStateFlow(false)
     val isSignedInFlow: StateFlow<Boolean>
         get() = _isSignedIn
+
+    private val _paymentCallback = MutableStateFlow<Event<PaymentCallback>>(Event(PaymentCallback.NONE))
+    val paymentCallback: StateFlow<Event<PaymentCallback>>
+        get() = _paymentCallback
 
     private var initiatives: List<Initiative>? = null
 

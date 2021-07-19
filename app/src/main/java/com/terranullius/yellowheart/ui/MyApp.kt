@@ -4,10 +4,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -19,7 +16,9 @@ import com.terranullius.yellowheart.data.ShareLinks
 import com.terranullius.yellowheart.other.Constants.RT_DETAIL
 import com.terranullius.yellowheart.other.Constants.RT_FEED
 import com.terranullius.yellowheart.other.Constants.RT_SPLASH
+import com.terranullius.yellowheart.utils.PaymentCallback
 import com.terranullius.yellowheart.utils.Result
+import com.terranullius.yellowheart.viewmodels.MainViewModel
 
 @ExperimentalPagerApi
 @Composable
@@ -29,8 +28,16 @@ fun MyApp(
     initiatives: State<Result<List<Initiative>>>,
     onBottomBarClicked: (String) -> Unit,
     onShareDialogClicked: (link: String) -> Unit,
-    onHelpClicked: (isPayable: Boolean, link: String?, amount: Int?) -> Unit
+    onHelpClicked: (isPayable: Boolean, link: String?, amount: Int?) -> Unit,
+    viewModel: MainViewModel
     ) {
+
+    val paymentCallack = viewModel.paymentCallback.collectAsState()
+
+    when(paymentCallack.value.getContentIfNotHandled()){
+        is PaymentCallback.success -> //TODO
+    }
+
     Surface(color = MaterialTheme.colors.primary) {
 
         val selectedInitiative = remember {
