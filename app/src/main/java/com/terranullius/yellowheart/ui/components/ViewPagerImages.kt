@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.google.accompanist.coil.rememberCoilPainter
@@ -58,7 +59,7 @@ fun ViewPagerImages(
         launch {
             while (imageSize <= 1.4f) {
 
-                if (!pagerState.isScrollInProgress) imageSize += 0.0015f
+                if (!pagerState.isScrollInProgress) imageSize += 0.0013f
                 else imageSize = 1f
 
                 if (imageSize > 1.4f) imageSize = 1f
@@ -80,8 +81,12 @@ fun ViewPagerImages(
         } else { //Video
             currentYoutubePlayer?.let { currentPlayer ->
                 if (isVideoPlaying.value) {
-                    if (currentPlayingVideoIndex == currentPage) {
-                        scrollPage(pagerState)
+                    if (currentPlayingVideoIndex != currentPage) {
+                        onBuffered(currentPlayer) {
+                            if (isVideoPlaying.value) {
+                                if (currentPlayingVideoIndex != currentPage) scrollPage(pagerState)
+                            } else currentPlayer.play()
+                        }
                     } else onBuffered(currentPlayer) {
                         if (isVideoPlaying.value) {
                             if (currentPlayingVideoIndex != currentPage) scrollPage(pagerState)
@@ -101,6 +106,13 @@ fun ViewPagerImages(
     HorizontalPager(state = pagerState, modifier = modifier, reverseLayout = false) { page ->
 
         Box(modifier = Modifier.fillMaxSize()) {
+
+          /*  val context = LocalContext.current
+
+            val youTubePlayerView: YouTubePlayerView = remember {
+                YouTubePlayerView(context)
+            }
+*/
             if (images[page].contains("youtubeID")) {
                 AndroidView(
                     modifier = Modifier
@@ -125,110 +137,115 @@ fun ViewPagerImages(
                                     )
                                 }
                             })
-                        }
-                    }) {
-                    it.setOnClickListener {
-                        onYoutubePlayerClicked()
-                    }
-                    it.addYouTubePlayerListener(object : YouTubePlayerListener {
-                        override fun onApiChange(youTubePlayer: YouTubePlayer) {
+                            addYouTubePlayerListener(object : YouTubePlayerListener {
+                                override fun onApiChange(youTubePlayer: YouTubePlayer) {
 
-                        }
-
-                        override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) {
-
-                        }
-
-                        override fun onError(
-                            youTubePlayer: YouTubePlayer,
-                            error: PlayerConstants.PlayerError
-                        ) {
-                            setPlaying(false)
-                        }
-
-                        private fun setPlaying(value: Boolean) {
-                            if (currentPlayingVideoIndex == page) {
-                                isVideoPlaying.value = value
-                            }
-                        }
-
-                        override fun onPlaybackQualityChange(
-                            youTubePlayer: YouTubePlayer,
-                            playbackQuality: PlayerConstants.PlaybackQuality
-                        ) {
-
-                        }
-
-                        override fun onPlaybackRateChange(
-                            youTubePlayer: YouTubePlayer,
-                            playbackRate: PlayerConstants.PlaybackRate
-                        ) {
-
-                        }
-
-                        override fun onReady(youTubePlayer: YouTubePlayer) {
-
-                        }
-
-                        override fun onStateChange(
-                            youTubePlayer: YouTubePlayer,
-                            state: PlayerState
-                        ) {
-
-                            val currentPlayer = youtubePlayerList.find { playerIndexed ->
-                                playerIndexed.index == page
-                            }
-
-                            when (state) {
-                                PlayerState.PAUSED -> {
-                                    currentPlayingVideoIndex = 15
-                                    currentPlayer?.isBuffering = false
                                 }
-                                PlayerState.ENDED -> {
+
+                                override fun onCurrentSecond(
+                                    youTubePlayer: YouTubePlayer,
+                                    second: Float
+                                ) {
+
+                                }
+
+                                override fun onError(
+                                    youTubePlayer: YouTubePlayer,
+                                    error: PlayerConstants.PlayerError
+                                ) {
                                     setPlaying(false)
-                                    currentPlayer?.isBuffering = false
                                 }
-                                PlayerState.PLAYING -> {
-                                    currentPlayingVideoIndex = page
-                                    isVideoPlaying.value = true
-                                    currentPlayer?.isBuffering = false
+
+                                private fun setPlaying(value: Boolean) {
+                                    if (currentPlayingVideoIndex == page) {
+                                        isVideoPlaying.value = value
+                                    }
                                 }
-                                PlayerState.BUFFERING -> currentPlayer?.isBuffering = true
-                                PlayerState.VIDEO_CUED -> currentPlayer?.isBuffering = false
-                                PlayerState.UNKNOWN -> currentPlayer?.isBuffering = false
-                                else -> {
+
+                                override fun onPlaybackQualityChange(
+                                    youTubePlayer: YouTubePlayer,
+                                    playbackQuality: PlayerConstants.PlaybackQuality
+                                ) {
+
                                 }
-                            }
+
+                                override fun onPlaybackRateChange(
+                                    youTubePlayer: YouTubePlayer,
+                                    playbackRate: PlayerConstants.PlaybackRate
+                                ) {
+
+                                }
+
+                                override fun onReady(youTubePlayer: YouTubePlayer) {
+
+                                }
+
+                                override fun onStateChange(
+                                    youTubePlayer: YouTubePlayer,
+                                    state: PlayerState
+                                ) {
+
+                                    val currentPlayer = youtubePlayerList.find { playerIndexed ->
+                                        playerIndexed.index == page
+                                    }
+
+                                    when (state) {
+                                        PlayerState.PAUSED -> {
+                                            currentPlayingVideoIndex = 15
+                                            currentPlayer?.isBuffering = false
+                                        }
+                                        PlayerState.ENDED -> {
+                                            setPlaying(false)
+                                            currentPlayer?.isBuffering = false
+                                        }
+                                        PlayerState.PLAYING -> {
+                                            currentPlayingVideoIndex = page
+                                            isVideoPlaying.value = true
+                                            currentPlayer?.isBuffering = false
+                                        }
+                                        PlayerState.BUFFERING -> currentPlayer?.isBuffering = true
+                                        PlayerState.VIDEO_CUED -> currentPlayer?.isBuffering = false
+                                        PlayerState.UNKNOWN -> currentPlayer?.isBuffering = false
+                                        else -> {
+                                        }
+                                    }
+                                }
+
+                                override fun onVideoDuration(
+                                    youTubePlayer: YouTubePlayer,
+                                    duration: Float
+                                ) {
+
+                                }
+
+                                override fun onVideoId(
+                                    youTubePlayer: YouTubePlayer,
+                                    videoId: String
+                                ) {
+
+                                }
+
+                                override fun onVideoLoadedFraction(
+                                    youTubePlayer: YouTubePlayer,
+                                    loadedFraction: Float
+                                ) {
+
+                                }
+                            })
                         }
-
-                        override fun onVideoDuration(
-                            youTubePlayer: YouTubePlayer,
-                            duration: Float
-                        ) {
-
+                        youTubePlayerView
+                    }) {
+                    it.apply {
+                        enterFullScreen()
+                        enableBackgroundPlayback(false)
+                        getPlayerUiController().apply {
+                            showFullscreenButton(false)
+                            showVideoTitle(false)
+                            showYouTubeButton(false)
+                            showSeekBar(true)
+                            showMenuButton(false)
                         }
-
-                        override fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String) {
-
-                        }
-
-                        override fun onVideoLoadedFraction(
-                            youTubePlayer: YouTubePlayer,
-                            loadedFraction: Float
-                        ) {
-
-                        }
-                    })
-                    it.enterFullScreen()
-                    it.enableBackgroundPlayback(false)
-                    it.getPlayerUiController().apply {
-                        showFullscreenButton(false)
-                        showVideoTitle(false)
-                        showYouTubeButton(false)
-                        showSeekBar(true)
-                        showMenuButton(false)
                     }
-
                 }
 
                 Box(modifier = Modifier
@@ -299,10 +316,11 @@ fun ViewPagerImages(
 
 @OptIn(ExperimentalPagerApi::class)
 fun CoroutineScope.scrollPage(pagerState: PagerState) {
+    Log.d("fuck","pageCount: ${pagerState.pageCount}  currentPage: ${(pagerState.currentPage + 1)%(pagerState.pageCount)}")
     launch {
         val randomDelayMillis = Random.nextInt(4, 11) * 1000L
         delay(randomDelayMillis)
-        pagerState.animateScrollToPage(pagerState.currentPage + 1)
+        pagerState.animateScrollToPage((pagerState.currentPage + 1)%(pagerState.pageCount))
     }
 }
 
@@ -328,7 +346,6 @@ class YoutubePlayerIndexed(
     fun play() {
         youTubePlayer.play()
     }
-
     fun pause() {
         youTubePlayer.pause()
     }

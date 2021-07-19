@@ -41,13 +41,13 @@ fun InitiativeDto.toInitiative(): Initiative = Initiative(
 
 fun DocumentSnapshot.toInitiativeDto(): InitiativeDto? {
 
-    val shareLinks = ShareLinks(
-        fb = this.getString(FB_FIELD_SHARE_FB)!!,
-        insta = this.getString(FB_FIELD_SHARE_INSTA)!!,
-        twitter = this.getString(FB_FIELD_SHARE_TWITTER)!!
-    )
-
     return try {
+        val shareLinks = ShareLinks(
+            fb = this.getString(FB_FIELD_SHARE_FB)!!,
+            insta = this.getString(FB_FIELD_SHARE_INSTA)!!,
+            twitter = this.getString(FB_FIELD_SHARE_TWITTER)!!
+        )
+
         InitiativeDto(
             id = this.id,
             name = this.getString(FB_FIELD_NAME)!!,
