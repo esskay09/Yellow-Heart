@@ -2,7 +2,7 @@ package com.terranullius.yellowheart.data
 
 data class Initiative(
     val id: String = "",
-    var name: String,
+    var name: String = "Title",
     var descriptions: List<String>,
     var images: List<String>,
     val isPayable: Boolean = true,

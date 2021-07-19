@@ -12,16 +12,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun InitiativeTitle(modifier: Modifier = Modifier, text: String) {
+fun InitiativeTitle(modifier: Modifier = Modifier, text: String, size: TextStyle = MaterialTheme.typography.h4) {
     Text(
         text = text,
-        style = MaterialTheme.typography.h4.copy(
+        style = size.copy(
             color = Color(0xFFF8E4E6),
             background = Color(0xFFA22B3E),
             fontWeight = FontWeight.Bold

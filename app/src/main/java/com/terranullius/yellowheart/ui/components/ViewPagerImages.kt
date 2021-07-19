@@ -114,7 +114,7 @@ fun ViewPagerImages(
             }
 
             DisposableEffect(key1 = null) {
-                this.onDispose {
+                onDispose {
                     youTubePlayerView.release()
                 }
             }
