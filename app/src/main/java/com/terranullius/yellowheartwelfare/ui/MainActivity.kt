@@ -33,6 +33,8 @@ import com.terranullius.yellowheartwelfare.viewmodels.MainViewModel
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
+import terranullius.yellowheartwelfare.R
+
 class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel>()
 
