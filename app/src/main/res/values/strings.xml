@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Yellow Heart</string>
+    <string name="app_name">Yellow heart welfare association</string>
     <string name="facebook_application_id" translatable="false">3984119488369218</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
