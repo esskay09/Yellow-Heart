@@ -29,7 +29,7 @@ import com.terranullius.yellowheartwelfare.ui.components.BottomBar
 import com.terranullius.yellowheartwelfare.ui.components.HelpDialog
 import com.terranullius.yellowheartwelfare.ui.components.ShareDialog
 import com.terranullius.yellowheartwelfare.ui.components.ViewPagerImages
-import terranullius.yellowheart.R
+import terranullius.yellowheartwelfare.R
 import kotlin.math.min
 
 @ExperimentalPagerApi

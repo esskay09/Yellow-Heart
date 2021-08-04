@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.terranullius.yellowheartwelfare.other.Constants.DIALOG_FB
 import com.terranullius.yellowheartwelfare.other.Constants.DIALOG_INSTA
 import com.terranullius.yellowheartwelfare.other.Constants.DIALOG_TWITTER
-import terranullius.yellowheart.R
+import terranullius.yellowheartwelfare.R
 
 
 //TODO CREATE CLASS FOR THIS

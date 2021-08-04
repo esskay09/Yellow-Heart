@@ -9,7 +9,7 @@ import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.terranullius.yellowheartwelfare.data.User
 import com.terranullius.yellowheartwelfare.other.Constants.RC_SIGN_IN
-import terranullius.yellowheart.R
+import terranullius.yellowheartwelfare.R
 import java.lang.IllegalArgumentException
 
 object FirebaseAuthUtils {

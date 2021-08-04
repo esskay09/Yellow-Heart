@@ -12,7 +12,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.terranullius.yellowheartwelfare.other.Constants.AB_JOIN
 import com.terranullius.yellowheartwelfare.other.Constants.AB_SHARE
-import terranullius.yellowheart.R
+import terranullius.yellowheartwelfare.R
 
 @Composable
 fun BottomBar(

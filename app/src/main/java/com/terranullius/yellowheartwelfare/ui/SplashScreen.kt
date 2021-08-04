@@ -12,7 +12,7 @@ import androidx.navigation.NavController
 import com.airbnb.lottie.LottieAnimationView
 import com.terranullius.yellowheartwelfare.other.Constants.RT_FEED
 import com.terranullius.yellowheartwelfare.other.Constants.RT_SPLASH
-import terranullius.yellowheart.R
+import terranullius.yellowheartwelfare.R
 
 
 @Composable

@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavHostController
 import com.airbnb.lottie.LottieAnimationView
-import terranullius.yellowheart.R
+import terranullius.yellowheartwelfare.R
 
 @Composable
 fun PaymentFinishedScreen(modifier: Modifier = Modifier, navController: NavHostController) {
