@@ -15,8 +15,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.google.accompanist.coil.rememberCoilPainter
-import com.google.accompanist.imageloading.ImageLoadState
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.ImagePainter
+import coil.compose.rememberImagePainter
+import coil.size.Scale
+import coil.transform.GrayscaleTransformation
+import coil.transform.Transformation
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
@@ -31,6 +35,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
+@OptIn(ExperimentalCoilApi::class)
 @ExperimentalPagerApi
 @Composable
 fun ViewPagerImages(
@@ -281,7 +286,10 @@ fun ViewPagerImages(
                     })
 
             } else {
-                val painter = rememberCoilPainter(request = images[page], fadeIn = true)
+                val painter = rememberImagePainter(data = images[page], builder = {
+                    crossfade(true)
+                    scale(Scale.FILL)
+                })
 
                 Box(modifier = Modifier.fillMaxSize()) {
                     Image(
@@ -297,14 +305,14 @@ fun ViewPagerImages(
                                 }
                             },
                         painter = painter,
+                        alignment = Alignment.TopStart,
                         contentScale = ContentScale.FillBounds,
                         contentDescription = ""
                     )
                 }
-                when (painter.loadState) {
-                    is ImageLoadState.Loading -> CircularProgressIndicator(
+                when (painter.state) {
+                    is ImagePainter.State.Loading -> CircularProgressIndicator(
                         modifier = Modifier
-                            .fillMaxSize(0.5f)
                             .align(Alignment.Center)
                             .offset(x = 0.dp, y = (-30).dp),
                         color = MaterialTheme.colors.secondary
