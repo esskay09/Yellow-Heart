@@ -16,11 +16,14 @@ fun CircularProgress(
     modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier) {
-        CircularProgressIndicator(
+      /*  CircularProgressIndicator(
             modifier = Modifier
                 .size(200.dp)
                 .align(Alignment.Center),
             color = MaterialTheme.colors.secondary
+        )*/
+        LoadingComposable(
+            Modifier.size(150.dp).align(Alignment.Center)
         )
     }
 }

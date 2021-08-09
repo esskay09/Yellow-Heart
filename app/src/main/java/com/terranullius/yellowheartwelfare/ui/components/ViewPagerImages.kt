@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -21,8 +19,6 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.ImagePainter
 import coil.compose.rememberImagePainter
 import coil.size.Scale
-import coil.transform.GrayscaleTransformation
-import coil.transform.Transformation
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
@@ -293,50 +289,29 @@ fun ViewPagerImages(
                     scale(Scale.FILL)
                 })
 
-                Box(modifier = Modifier.fillMaxSize()) {
-                    Image(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .graphicsLayer {
-                                if (pagerState.targetPage == page || pagerState.currentPage == page) {
-                                    scaleY = imageSize
-                                    scaleX = imageSize
-                                } else {
-                                    scaleY = 1f
-                                    scaleX = 1f
-                                }
-                            },
-                        painter = painter,
-                        alignment = Alignment.TopStart,
-                        contentScale = ContentScale.FillBounds,
-                        contentDescription = ""
-                    )
-                when (painter.state) {
-                    is ImagePainter.State.Loading -> {
-                        Surface(color = Color.Gray.copy(alpha = 0.3f)) {
-                            CircularProgressIndicator(
-                                modifier = Modifier
-                                    .align(Alignment.Center)
-                                    .offset(x = 0.dp, y = (-30).dp),
-                                color = MaterialTheme.colors.secondary
-                            )
-                        }
-                    }
-                    else -> {
-                    }
-                }}
+                InitiativeImage(
+                    modifier = Modifier.fillMaxSize(),
+                    pagerState,
+                    page,
+                    imageSize,
+                    painter
+                )
             }
         }
     }
 }
 
+
 @OptIn(ExperimentalPagerApi::class)
 fun CoroutineScope.scrollPage(pagerState: PagerState) {
-    Log.d("fuck","pageCount: ${pagerState.pageCount}  currentPage: ${(pagerState.currentPage + 1)%(pagerState.pageCount)}")
+    Log.d(
+        "fuck",
+        "pageCount: ${pagerState.pageCount}  currentPage: ${(pagerState.currentPage + 1) % (pagerState.pageCount)}"
+    )
     launch {
         val randomDelayMillis = Random.nextInt(4, 11) * 1000L
         delay(randomDelayMillis)
-        pagerState.animateScrollToPage((pagerState.currentPage + 1)%(pagerState.pageCount))
+        pagerState.animateScrollToPage((pagerState.currentPage + 1) % (pagerState.pageCount))
     }
 }
 
@@ -362,6 +337,7 @@ class YoutubePlayerIndexed(
     fun play() {
         youTubePlayer.play()
     }
+
     fun pause() {
         youTubePlayer.pause()
     }
