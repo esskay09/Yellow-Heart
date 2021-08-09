@@ -17,7 +17,7 @@ import coil.compose.ImagePainter
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
 
-@OptIn(ExperimentalPagerApi::class)
+@OptIn(ExperimentalPagerApi::class, coil.annotation.ExperimentalCoilApi::class)
 @Composable
 fun InitiativeImage(
     modifier: Modifier = Modifier,
@@ -28,6 +28,23 @@ fun InitiativeImage(
 )
     {
         Box(modifier = modifier) {
+            Image(
+            modifier = Modifier
+                .fillMaxSize()
+                .graphicsLayer {
+                    if (pagerState.targetPage == page || pagerState.currentPage == page) {
+                        scaleY = imageSize
+                        scaleX = imageSize
+                    } else {
+                        scaleY = 1f
+                        scaleX = 1f
+                    }
+                },
+            painter = painter,
+            alignment = Alignment.TopStart,
+            contentScale = ContentScale.FillBounds,
+            contentDescription = ""
+        )
             when (painter.state) {
                 is ImagePainter.State.Loading -> {
                     Surface(color = Color.Gray.copy(alpha = 0.3f)) {
@@ -39,23 +56,7 @@ fun InitiativeImage(
                     }
                 }
                 is ImagePainter.State.Success -> {
-                    Image(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .graphicsLayer {
-                                if (pagerState.targetPage == page || pagerState.currentPage == page) {
-                                    scaleY = imageSize
-                                    scaleX = imageSize
-                                } else {
-                                    scaleY = 1f
-                                    scaleX = 1f
-                                }
-                            },
-                        painter = painter,
-                        alignment = Alignment.TopStart,
-                        contentScale = ContentScale.FillBounds,
-                        contentDescription = ""
-                    )
+
                 }
                 is ImagePainter.State.Error -> {
                     ErrorComposable(

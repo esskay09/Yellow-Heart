@@ -2,9 +2,12 @@ package com.terranullius.yellowheartwelfare.ui.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.height
+import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
@@ -24,6 +27,7 @@ fun ErrorComposable(modifier: Modifier = Modifier) {
         ) {
             it.playAnimation()
         }
+        Divider(Modifier.height(15.dp))
         Text(text = "Something went wrong", Modifier.align(Alignment.CenterHorizontally))
     }
 
