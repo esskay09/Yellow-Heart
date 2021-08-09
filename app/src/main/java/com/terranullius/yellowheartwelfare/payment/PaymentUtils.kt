@@ -44,7 +44,7 @@ object PaymentUtils {
         jsonObject = JSONObject()
         try {
             jsonObject.put("merchant_id", "005181070659984")
-            jsonObject.put("access_token", "5CCFD788E37A7582623662F1969F3E60")
+            jsonObject.put("access_token", "174DFEB2A3162945F06D673A87712715")
             jsonObject.put("customer_name", user.name)
             jsonObject.put("customer_email", user.email)
             jsonObject.put("customer_phone", user.phone)

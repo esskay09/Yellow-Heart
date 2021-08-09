@@ -7,9 +7,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -309,17 +311,20 @@ fun ViewPagerImages(
                         contentScale = ContentScale.FillBounds,
                         contentDescription = ""
                     )
-                }
                 when (painter.state) {
-                    is ImagePainter.State.Loading -> CircularProgressIndicator(
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .offset(x = 0.dp, y = (-30).dp),
-                        color = MaterialTheme.colors.secondary
-                    )
+                    is ImagePainter.State.Loading -> {
+                        Surface(color = Color.Gray.copy(alpha = 0.3f)) {
+                            CircularProgressIndicator(
+                                modifier = Modifier
+                                    .align(Alignment.Center)
+                                    .offset(x = 0.dp, y = (-30).dp),
+                                color = MaterialTheme.colors.secondary
+                            )
+                        }
+                    }
                     else -> {
                     }
-                }
+                }}
             }
         }
     }
