@@ -28,27 +28,20 @@ fun Feed(
     }
     when (initiatives) {
         is Result.Success-> {
-            Box(Modifier.fillMaxSize()){
-                ErrorComposable(
-                    modifier = Modifier.align(Alignment.Center)
-                )
-            }
-          /*  LazyColumn(
+            LazyColumn(
                 modifier = modifier
             ) {
-                initiatives.data.let {
-                    itemsIndexed(it) { pos: Int, initiative: Initiative ->
-                        Spacer(modifier = Modifier.height(8.dp))
-                        FeedImageCard(
-                            initiative = initiative, modifier = Modifier.height(290.dp),
-                            onInitiativeClicked = {
-                                onInitiativeClicked(it)
-                            },
-                            isVideoPlaying = isVideoPlaying
-                        )
-                    }
+                itemsIndexed(initiatives.data) { _: Int, initiative: Initiative ->
+                    Spacer(modifier = Modifier.height(8.dp))
+                    FeedImageCard(
+                        initiative = initiative, modifier = Modifier.height(290.dp),
+                        onInitiativeClicked = {
+                            onInitiativeClicked(it)
+                        },
+                        isVideoPlaying = isVideoPlaying
+                    )
                 }
-            }*/
+            }
         }
         is Result.Error -> {
             Box(Modifier.fillMaxSize()){
