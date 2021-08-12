@@ -8,6 +8,7 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.paykun.sdk.PaykunApiCall
 import com.paykun.sdk.eventbus.GlobalBus
 import com.terranullius.yellowheartwelfare.data.User
+import com.terranullius.yellowheartwelfare.other.Keys
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -43,8 +44,8 @@ object PaymentUtils {
     private fun createPaykunObject(user: User, amount: Int) {
         jsonObject = JSONObject()
         try {
-            jsonObject.put("merchant_id", "005181070659984")
-            jsonObject.put("access_token", "174DFEB2A3162945F06D673A87712715")
+            jsonObject.put("merchant_id", Keys.MERCHANT_ID)
+            jsonObject.put("access_token", Keys.ACCESS_TOKEN)
             jsonObject.put("customer_name", user.name)
             jsonObject.put("customer_email", user.email)
             jsonObject.put("customer_phone", user.phone)

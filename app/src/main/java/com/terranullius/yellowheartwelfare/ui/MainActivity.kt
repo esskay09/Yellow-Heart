@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(Intent.ACTION_VIEW).apply {
                     data = Uri.parse(JOIN_LINK)
                 }
-                startActivity(intent)
+                startSafeActivity(intent)
             }
         }
     }
@@ -124,7 +124,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse(link)
             }
-            startActivity(intent)
+            startSafeActivity(intent)
         }
     }
 
@@ -138,7 +138,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse(link)
             }
-            startActivity(intent)
+            startSafeActivity(intent)
         }
     }
 
